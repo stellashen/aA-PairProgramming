@@ -34,18 +34,30 @@ class PolyTreeNode
     child_node.parent=(nil)
   end
 
-  def dfs(target_value)
-    return self if value == target_value
-    return nil if self.children.empty?
-    stack = []
-    stack.concat(self.children.reverse)
+  # def dfs(target_value)
+  #   return self if value == target_value
+  #   return nil if self.children.empty?
+  #   stack = []
+  #   stack.concat(self.children.reverse)
+  #
+  #   until stack.empty?
+  #     child = stack.pop
+  #     result = child.dfs(target_value)
+  #     return result unless result.nil?
+  #   end
+  # end
 
-    until stack.empty?
-      child = stack.pop
-      result = child.dfs(target_value)
-      return result unless result.nil?
+  def dfs(target)
+    return self if value == target
+
+    self.children.each do |child|
+      node = child.dfs(target)
+      return node unless node.nil?
     end
+
+    nil
   end
+
 
   def bfs(target_value)
     queue = []
