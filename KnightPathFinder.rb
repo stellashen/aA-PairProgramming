@@ -1,5 +1,5 @@
 require './skeleton/lib/00_tree_node'
-
+require 'byebug'
 class KnightPathFinder
 
   def initialize(start_pos)
@@ -29,18 +29,27 @@ class KnightPathFinder
   end
 
   def build_move_tree
-    children = new_move_positions(@start_pos)
+    children = new_move_positions(@start_pos).map do |pos|
+      PolyTreeNode.new(pos)
+    end
     root = PolyTreeNode.new(@start_pos, nil, children)
+
     queue = []
     queue << root
 
     until queue.empty?
       cur = queue.shift
       cur.children.each do |child|
-        PolyTreeNode.new(child, root, new_move_positions(child))
+        child.parent=(cur)
+        new_nodes = []
+        new_move_positions(child.value).each do |pos|
+          new_nodes << PolyTreeNode.new(pos, child)
+          @visited_positions << pos
+        end
+        queue.concat(new_nodes)
       end
-
-      queue += cur.children
     end
+
+    root
   end
 end
