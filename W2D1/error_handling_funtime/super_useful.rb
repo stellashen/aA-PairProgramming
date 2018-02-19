@@ -1,6 +1,12 @@
 # PHASE 2
 def convert_to_int(str)
-  Integer(str)
+  begin
+    Integer(str)
+  rescue ArgumentError => e
+    puts "The argument passed was not an integer."
+    puts "Original error message: #{e.message}"
+    return -1
+  end
 end
 
 # PHASE 3
@@ -9,9 +15,24 @@ FRUITS = ["apple", "banana", "orange"]
 def reaction(maybe_fruit)
   if FRUITS.include? maybe_fruit
     puts "OMG, thanks so much for the #{maybe_fruit}!"
-  else 
-    raise StandardError 
-  end 
+  else
+    puts "You did NOT give me a fruit! Give me coffee,
+      and then we can try again."
+    begin
+      give_coffee
+      puts "Thanks for the coffee!"
+      feed_me_a_fruit
+    rescue
+      puts "Try again."
+      retry
+    end
+  end
+end
+
+def give_coffee
+  puts "Type \"coffee\" if you want to give me coffee."
+  maybe_coffee = gets.chomp
+  raise "This isn't coffee!" if maybe_coffee != "coffee"
 end
 
 def feed_me_a_fruit
@@ -19,8 +40,8 @@ def feed_me_a_fruit
 
   puts "Feed me a fruit! (Enter the name of a fruit:)"
   maybe_fruit = gets.chomp
-  reaction(maybe_fruit) 
-end  
+  reaction(maybe_fruit)
+end
 
 # PHASE 4
 class BestFriend
@@ -39,8 +60,6 @@ class BestFriend
   end
 
   def give_friendship_bracelet
-    puts "Hey bestie, I made you a friendship bracelet. It says my name, #{@name}, so you never forget me." 
+    puts "Hey bestie, I made you a friendship bracelet. It says my name, #{@name}, so you never forget me."
   end
 end
-
-
