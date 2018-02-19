@@ -49,6 +49,10 @@ class BestFriend
     @name = name
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
+    if name.length <= 0 || fav_pastime.length <= 0
+      raise ArgumentError
+    end
+    raise NotRealFriendError.new("Not a real friend!") if yrs_known < 5
   end
 
   def talk_about_friendship
@@ -61,5 +65,8 @@ class BestFriend
 
   def give_friendship_bracelet
     puts "Hey bestie, I made you a friendship bracelet. It says my name, #{@name}, so you never forget me."
+  end
+
+  class NotRealFriendError < StandardError
   end
 end
