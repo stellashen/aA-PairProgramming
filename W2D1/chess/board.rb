@@ -1,19 +1,13 @@
+require_relative 'piece'
+
 class Board
 
-  attr_accessor :rows
+  attr_reader :rows
 
   def initialize
     @rows = Array.new(8) { Array.new(8) }
-    @sentinel = []
+    @sentinel = NullPiece.new(nil, rows, nil)
     populate
-  end
-
-  def populate
-    rows.each_with_index do |row, r|
-      row.each_with_index.map do |piece, c|
-        Piece.new("b", rows, [r, c])
-      end
-    end
   end
 
   def [](pos)
@@ -61,4 +55,22 @@ class Board
   def move_piece!(color, start_pos, end_pos)
 
   end
+
+  private
+
+  attr_writer :rows
+
+  def populate
+    rows.each_index do |row|
+      rows[row].with_index do |col|
+        if [0, 1, 6, 7].include?(row)
+          rows[row][col] = Piece.new("b", rows, [row, col])
+        else
+          rows[row][col] = @sentinel
+        end
+      end
+    end
+    p rows
+  end
+
 end

@@ -6,13 +6,6 @@ class Piece
     @color = color
   end
 
-  def self.populate
-    board.rows[0, 0] = Rook.new(:b, @board, [0, 0])
-    # board.rows[0, 7] = Rook.new()
-    # board.rows[7, 0] = Rook.new()
-
-  end
-
   def to_s
 
   end
@@ -27,7 +20,7 @@ class Piece
   end
 
   def symbol
-
+    "this is a piece"
   end
 
   private
@@ -40,7 +33,7 @@ end
 class Rook < Piece
 
   def initialize(color, board, pos)
-    super(color, board, pos)
+    super
     @symbol = :♜
   end
 
@@ -48,7 +41,7 @@ end
 
 class Bishop < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = :♝
   end
@@ -56,7 +49,7 @@ end
 
 class Queen < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = :♛
   end
@@ -64,7 +57,7 @@ end
 
 class Knight < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = :♞
   end
@@ -72,7 +65,7 @@ end
 
 class King < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = :♚
   end
@@ -80,7 +73,7 @@ end
 
 class Pawn < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = :♟
   end
@@ -88,7 +81,7 @@ end
 
 class NullPiece < Piece
 
-  def initialize
+  def initialize(color, board, pos)
     super
     @symbol = nil
   end
