@@ -62,15 +62,17 @@ class Board
 
   def populate
     rows.each_index do |row|
-      rows[row].with_index do |col|
+      rows[row].each_index do |col|
         if [0, 1, 6, 7].include?(row)
-          rows[row][col] = Piece.new("b", rows, [row, col])
+          # rows[row][col] = Piece.new("b", rows, [row, col])
+          print "p"
         else
-          rows[row][col] = @sentinel
+          print "n"
+          # rows[row][col] = @sentinel
         end
       end
+      print "\n"
     end
-    p rows
   end
 
 end
