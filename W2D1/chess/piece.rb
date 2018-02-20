@@ -1,3 +1,35 @@
+require 'colorize'
+=begin
+<~~~About the colorize gem~~~>
+
+## Useful links:
+https://github.com/fazibear/colorize
+https://stackoverflow.com/questions/1489183/colorized-ruby-output
+
+## Useful commands:
+String.colors                       # return array of all possible colors names
+String.color_samples                # displays color samples in all combinations
+
+puts "This is blue".colorize(:blue)
+puts "This is also blue".colorize(:color => :blue)
+puts "This is light blue with red background".colorize(:color => :light_blue, :background => :red)
+puts "This is light blue with red background".colorize(:light_blue ).colorize( :background => :red)
+
+## Test our to_s method in Terminal & choose text/background color
+pry(main)> load 'piece.rb'
+# look at black pieces on yellow/green background
+pry(main)> k = King.new(:black, 0, [0,0])
+pry(main)> puts k.to_s.colorize(:color => k.color, :background => :yellow)
+pry(main)> puts k.to_s.colorize(:color => k.color, :background => :green)
+# look at light_white pieces
+pry(main)> q = Queen.new(:light_white, 0, [1,0])
+pry(main)> puts q.to_s.colorize(:color => q.color, :background => :green)
+pry(main)> puts q.to_s.colorize(:color => q.color, :background => :yellow)
+# look at two pieces side by side
+pry(main)> k_str = k.to_s.colorize(:color => k.color, :background => :yellow)
+pry(main)> q_str = q.to_s.colorize(:color => q.color, :background => :green)
+pry(main)> puts "#{k_str}#{q_str}"
+=end
 class Piece
 
   def initialize(color, board, pos)
@@ -7,10 +39,13 @@ class Piece
   end
 
   def to_s
-
+    symbol_in_str = self.symbol.to_s # turn symbol into string
+    # add one space before and two spaces after symbol
+    line = " #{symbol_in_str}  "
   end
 
   def empty?
+
   end
 
   def valid_moves
@@ -20,7 +55,8 @@ class Piece
   end
 
   def symbol
-    "this is a piece"
+    p = NullPiece.new
+    p.symbol
   end
 
   private
@@ -31,16 +67,15 @@ class Piece
 end
 
 class Rook < Piece
-
+  attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♜
   end
-
 end
 
 class Bishop < Piece
-
+  attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♝
@@ -48,7 +83,7 @@ class Bishop < Piece
 end
 
 class Queen < Piece
-
+  attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♛
@@ -56,40 +91,12 @@ class Queen < Piece
 end
 
 class Knight < Piece
-
+  attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♞
   end
-end
 
-class King < Piece
-
-  def initialize(color, board, pos)
-    super
-    @symbol = :♚
-  end
-end
-
-class Pawn < Piece
-
-  def initialize(color, board, pos)
-    super
-    @symbol = :♟
-  end
-end
-
-class NullPiece < Piece
-
-  def initialize(color, board, pos)
-    super
-    @symbol = nil
-  end
-end
-
-
-
-Knight move_diffs:
   def move_diffs
     [
       [2, -1],
@@ -98,12 +105,14 @@ Knight move_diffs:
       [-1, 2],
       [-2, 1],
       [-2, -1],
-
+      [1, -2],
+      [-1, -2]
     ]
+  end
+end
 
-
-    class King < Piece
-
+class King < Piece
+  attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♚
@@ -112,7 +121,7 @@ Knight move_diffs:
   def move_diffs
     [
       [1, 0],
-      [1, -1],
+      [1, 1],
       [0, -1],
       [-1, -1],
       [-1, 0],
@@ -120,5 +129,21 @@ Knight move_diffs:
       [0, -1],
       [1, -1]
     ]
+  end
+end
+
+class Pawn < Piece
+  attr_reader :symbol, :color
+  def initialize(color, board, pos)
+    super
+    @symbol = :♟
+  end
+end
+
+class NullPiece < Piece
+  attr_reader :symbol, :color
+  def initialize
+    @color = "n" # n for no color
+    @symbol = :x
   end
 end
