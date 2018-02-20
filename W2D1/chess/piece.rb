@@ -86,3 +86,39 @@ class NullPiece < Piece
     @symbol = nil
   end
 end
+
+
+
+Knight move_diffs:
+  def move_diffs
+    [
+      [2, -1],
+      [2, 1],
+      [1, 2],
+      [-1, 2],
+      [-2, 1],
+      [-2, -1],
+
+    ]
+
+
+    class King < Piece
+
+  def initialize(color, board, pos)
+    super
+    @symbol = :♚
+  end
+
+  def move_diffs
+    [
+      [1, 0],
+      [1, -1],
+      [0, -1],
+      [-1, -1],
+      [-1, 0],
+      [-1, -1],
+      [0, -1],
+      [1, -1]
+    ]
+  end
+end
