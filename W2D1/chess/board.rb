@@ -1,4 +1,5 @@
 require_relative 'piece'
+require "byebug"
 
 class Board
 
@@ -74,7 +75,9 @@ class Board
     #
     curr_piece = self[start_pos]
 
-    unless curr_piece.moves.include?(end_pos)
+    moves_arr = curr_piece.moves(curr_piece.move_dirs)
+
+    unless moves_arr.include?(end_pos)
       raise 'You can\'t move here.'
     end
 
@@ -120,7 +123,7 @@ class Board
       row.each_index do |col_num|
         curr_pos = [row_num, col_num]
         unless self[curr_pos] == @sentinel
-          pieces << self[curr_pos]
+          pieces << curr_pos
         end
       end
     end
