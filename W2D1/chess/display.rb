@@ -1,11 +1,12 @@
 require "colorize"
 require_relative "board"
+require_relative "cursor"
 
 class Display
 
   def initialize(board)
     @board = board
-    # @cursor = cursor
+    @cursor = Cursor.new([0, 0], board)
   end
 
   def render
@@ -27,11 +28,26 @@ class Display
   def grid_color(pos)
     row, col = pos
     if row.even? && col.even? || row.odd? && col.odd?
+      return :light_yellow if pos == @cursor.cursor_pos
       :yellow
     else
+      return :light_green if pos == @cursor.cursor_pos
       :green
     end
   end
 
+  def play
+    while true
+      self.render
+      @cursor.get_input
+      system("clear")
+    end
+  end
 
+end
+
+if $PROGRAM_NAME == __FILE__
+  b = Board.new
+  d = Display.new(b)
+  d.play
 end

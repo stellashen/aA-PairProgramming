@@ -87,7 +87,10 @@ class Board
   end
 
   def valid_pos?(pos)
-    #piece is within the board ([0,0], [7,7])
+    # piece is within the board ([0,0], [7,7])
+    row, col = pos
+    return false unless row.between?(0, 7) && col.between?(0, 7)
+    true
   end
 
   def add_piece(piece, pos)
