@@ -72,8 +72,11 @@ class Board
     # if piece.color != color
     #   raise 'Please move your own piece!'
     #
-    # elsif !valid_pos?(end_pos) (not on board or not in move_diffs)
-    #   raise 'You can\'t move here.'
+    curr_piece = self[start_pos]
+
+    unless curr_piece.moves.include?(end_pos)
+      raise 'You can\'t move here.'
+    end
 
     move_piece!(start_pos, end_pos)
   end
@@ -90,6 +93,7 @@ class Board
     # piece is within the board ([0,0], [7,7])
     row, col = pos
     return false unless row.between?(0, 7) && col.between?(0, 7)
+    return false unless pieces.include?(pos)
     true
   end
 
@@ -110,7 +114,17 @@ class Board
   end
 
   def pieces
-    #return all pieces without nil (flattened array?)
+    #return positions of all pieces without nil (flattened array?)
+    pieces = []
+    @rows.each_with_index do |row, row_num|
+      row.each_index do |col_num|
+        curr_pos = [row_num, col_num]
+        unless self[curr_pos] == @sentinel
+          pieces << self[curr_pos]
+        end
+      end
+    end
+    pieces
   end
 
   def dup

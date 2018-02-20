@@ -1,5 +1,6 @@
 require 'colorize'
 require 'singleton'
+require_relative 'modules'
 =begin
 <~~~About the colorize gem~~~>
 
@@ -66,26 +67,42 @@ class Piece
 end
 
 class Rook < Piece
+  include Slidable
+
   attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♜
   end
+
+  def move_dirs
+    { hori_vert: true, diagonal: false }
+  end
 end
 
 class Bishop < Piece
+  include Slidable
   attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♝
   end
+
+  def move_dirs
+    { hori_vert: false, diagonal: true }
+  end
 end
 
 class Queen < Piece
+  include Slidable
   attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♛
+  end
+
+  def move_dirs
+    { hori_vert: true, diagonal: true }
   end
 end
 

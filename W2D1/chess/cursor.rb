@@ -77,7 +77,6 @@ class Cursor
   end
 
   def handle_key(key)
-
     case key
     when :return, :space
       @cursor_pos
@@ -94,10 +93,17 @@ class Cursor
     new_row = row + diff[0]
     new_col = col + diff[1]
     new_pos = [new_row, new_col]
-    if board.valid_pos?(new_pos)
+    if cursor_valid_pos?(new_pos)
       @cursor_pos = new_pos
     else
       cursor_pos
     end
+  end
+
+  def cursor_valid_pos?(pos)
+    # piece is within the board ([0,0], [7,7])
+    row, col = pos
+    return false unless row.between?(0, 7) && col.between?(0, 7)
+    true
   end
 end
