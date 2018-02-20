@@ -1,4 +1,5 @@
 require 'colorize'
+require 'singleton'
 =begin
 <~~~About the colorize gem~~~>
 
@@ -31,6 +32,7 @@ pry(main)> q_str = q.to_s.colorize(:color => q.color, :background => :green)
 pry(main)> puts "#{k_str}#{q_str}"
 =end
 class Piece
+  attr_accessor :pos
 
   def initialize(color, board, pos)
     @board = board
@@ -41,7 +43,7 @@ class Piece
   def to_s
     symbol_in_str = self.symbol.to_s # turn symbol into string
     # add one space before and two spaces after symbol
-    line = " #{symbol_in_str}  "
+    " #{symbol_in_str}  "
   end
 
   def empty?
@@ -49,9 +51,6 @@ class Piece
   end
 
   def valid_moves
-  end
-
-  def pos=(val)
   end
 
   def symbol
@@ -141,6 +140,7 @@ class Pawn < Piece
 end
 
 class NullPiece < Piece
+  include Singleton
   attr_reader :symbol, :color
   def initialize
     @color = "n" # n for no color

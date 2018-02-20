@@ -5,50 +5,49 @@ class Board
   attr_accessor :rows
 
   def initialize
-    @sentinel = NullPiece.new(nil, rows, nil)
-    @rows = Array.new(8) { Array.new(8) }
+    @sentinel = NullPiece.instance
+    @rows = Array.new(8) { Array.new(8) { @sentinel } }
     populate
   end
 
   def populate
-    [:white, :black].each do |color|
+    [:black, :white].each do |color|
       fill_top_bottom_rows(color)
       fill_pawn_rows(color)
-      fill_sentinels
     end
+    fill_sentinels
   end
 
   def fill_top_bottom_rows(color)
-    # pieces = [ Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook ]
-    pieces = [ "R", "K", "B", "Q", "Z", "B", "K", "R"]
+    pieces = [ Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook ]
+    # pieces = [ "R", "K", "B", "Q", "Z", "B", "K", "R"]
     if color == :black
       row = 0
-    else
+    elsif color == :white
       row = 7
     end
 
     pieces.each_with_index do |piece, col|
-      @rows[row][col] = piece#piece.new(color, self, [row, col])
+      @rows[row][col] = piece.new(color, self, [row, col])
     end
   end
 
   def fill_pawn_rows(color)
     if color == :black
       row = 1
-    else
+    elsif color == :white
       row = 6
     end
 
     8.times do |col|
-      @rows[row][col] = "P" #Pawn.new(color, self, [row, col])
+      @rows[row][col] = Pawn.new(color, self, [row, col])
     end
   end
 
   def fill_sentinels
     (2..5).each do |row|
-      p row
       8.times do |col|
-        rows[row][col] = "_"#@sentinel
+        @rows[row][col] = @sentinel
       end
     end
   end
@@ -65,23 +64,26 @@ class Board
 
   #temporary until we have game.rb
   def render
-    @display = Display.new(@rows)
+    @display = Display.new(self)
   end
 
   def move_piece(color, start_pos, end_pos)
     # if piece color is not the right turn color
-    if piece.color != color
-      raise 'Please move your own piece!'
-    # elsif end_pos is not a valid move (not on board or not end_pos?)
+    # if piece.color != color
+    #   raise 'Please move your own piece!'
+    #
+    # elsif !valid_pos?(end_pos) (not on board or not in move_diffs)
     #   raise 'You can\'t move here.'
 
     move_piece!(start_pos, end_pos)
   end
 
   def move_piece!(color, start_pos, end_pos)
-    # self[end_pos] is piece
-    # self[start_pos] is sentinel
-    # piece.pos is endpos
+    # exchange two objects
+    # piece.pos is end_pos
+
+    self[end_pos], self[start_pos] = self[start_pos], self[end_pos]
+    self[end_pos].pos = end_pos
   end
 
   def valid_pos?(pos)
@@ -105,7 +107,7 @@ class Board
   end
 
   def pieces
-    #return all pieces without null (flattened array?)
+    #return all pieces without nil (flattened array?)
   end
 
   def dup
