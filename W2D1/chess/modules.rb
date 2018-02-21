@@ -18,7 +18,9 @@ module Slidable
         x, y = dir
         i, j = curr_pos
         curr_pos = [x + i, y + j]
-        next unless @board[curr_pos].empty?
+        if !@board[curr_pos].empty? && @board[curr_pos].color == self.color
+          next
+        end
         moves << curr_pos
       end
     end
@@ -36,7 +38,9 @@ module Stepable
       x, y = diff
       i, j = start_pos
       curr_pos = [x + i, y + j]
-      next unless @board[curr_pos].empty?
+      if !@board[curr_pos].empty? && @board[curr_pos].color == self.color
+        next
+      end
       moves << curr_pos
     end
     moves

@@ -89,6 +89,8 @@ class Board
 
     self[end_pos], self[start_pos] = self[start_pos], self[end_pos]
     self[end_pos].pos = end_pos
+
+    self[start_pos] = @sentinel
   end
 
   def valid_pos?(pos)
