@@ -48,7 +48,7 @@ class Piece
   end
 
   def empty?
-
+    self.is_a?(NullPiece)
   end
 
   def valid_moves
