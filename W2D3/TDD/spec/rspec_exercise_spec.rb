@@ -46,7 +46,36 @@ describe Array do
           expect(pair[0] <= pair[1]).to be true
         end
       end
-
     end
   end
-end 
+
+  describe "#my_transpose" do
+    it "transposes the matrix" do
+      arr = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8]
+      ]
+      result = [
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8]
+      ]
+      expect(arr.my_transpose).to eq(result)
+    end
+  end
+
+  describe "#stock_picker" do
+
+    arr = [2000, 100, 500, 200]
+    res = arr.stock_picker
+
+    it "buys the stock at the lowest price" do
+      expect(res[0]).to eq(1)
+    end
+
+    it "sells the stock at the highest price" do
+      expect(res[1]).to eq(2)
+    end
+  end
+end
