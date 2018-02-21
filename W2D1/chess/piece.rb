@@ -107,13 +107,14 @@ class Queen < Piece
 end
 
 class Knight < Piece
+  include Stepable
   attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♞
   end
 
-  def move_diffs
+  def move_dirs
     [
       [2, -1],
       [2, 1],
@@ -128,13 +129,14 @@ class Knight < Piece
 end
 
 class King < Piece
+  include Stepable
   attr_reader :symbol, :color
   def initialize(color, board, pos)
     super
     @symbol = :♚
   end
 
-  def move_diffs
+  def move_dirs
     [
       [1, 0],
       [1, 1],
