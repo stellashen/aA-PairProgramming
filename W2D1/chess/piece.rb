@@ -156,6 +156,41 @@ class Pawn < Piece
     super
     @symbol = :♟
   end
+
+  def move_dirs
+    if self.color == :black
+      [
+        [1, 0],
+        [1, -1],
+        [1, 1]
+      ]
+    else
+      [
+        [-1, 0],
+        [-1, -1],
+        [-1, 1]
+      ]
+    end
+  end
+
+  def moves(move_dirs)
+    total_moves = []
+
+    start_pos = self.pos
+    3.times do |i|
+      x, y = move_dirs[i]
+      i, j = start_pos
+      curr_pos = [x + i, y + j]
+      if i == 0 && @board[curr_pos].empty?
+        total_moves << curr_pos
+      elsif i != 0 && @board[curr_pos].color != self.color
+        total_moves << curr_pos
+      end
+    end
+
+    total_moves
+  end
+
 end
 
 class NullPiece < Piece

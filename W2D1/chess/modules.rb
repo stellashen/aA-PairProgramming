@@ -33,9 +33,8 @@ module Stepable
     moves = []
     start_pos = self.pos
     move_diffs.each do |diff|
-      curr_pos = start_pos
       x, y = diff
-      i, j = curr_pos
+      i, j = start_pos
       curr_pos = [x + i, y + j]
       next unless @board[curr_pos].empty?
       moves << curr_pos
