@@ -2,6 +2,7 @@ require 'rspec_exercise'
 
 describe Array do
   subject(:arr) { Array.new }
+
   describe "#my_unique" do
     it "returns empty array if input is empty array" do
       expect(arr.my_unique).to eq([])
