@@ -3,7 +3,7 @@ require 'towers_of_hanoi'
 
 describe TowersOfHanoi do
   subject(:unplayed_game) { TowersOfHanoi.new }
-  subject(:winning_game) { TowersOfHanoi.new([[], [3, 2, 1], []])}
+  subject(:winning_game) { TowersOfHanoi.new([[], [3, 2, 1], []]) }
 
   describe "#initialize" do
     arr = [[3, 2, 1], [], []]
