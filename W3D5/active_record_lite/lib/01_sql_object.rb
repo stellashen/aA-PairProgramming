@@ -31,21 +31,6 @@ class SQLObject
         self.attributes[col] = val
       end
     end
-
-    #
-    # cols.each do |col|
-    #   p @attributes
-    #
-    #   val = DBConnection.execute(<<-SQL)
-    #     SELECT
-    #       "#{col}"
-    #     FROM
-    #       "#{self.class.table_name}"
-    #   SQL
-    #
-    #   @attributes[col] = val
-    # end
-    # @attributes
   end
 
   def self.table_name=(table_name)
@@ -73,7 +58,13 @@ class SQLObject
   end
 
   def initialize(params = {})
-    # ...
+    cols = self.class.columns
+    # self.class.finalize!
+    params.each_pair do |attr_name, value|
+      raise "unknown attribute '#{attr_name}'" unless cols.include?(attr_name)
+      self.send("#{attr_name}=", value)
+      # self.attr_name = value
+    end
   end
 
   def attributes
