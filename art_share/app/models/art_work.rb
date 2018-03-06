@@ -3,7 +3,8 @@ class ArtWork < ApplicationRecord
     message: "should only have one piece with this name for the same artist"  }
 
   belongs_to :artist,
-    class_name: :User
+    class_name: :User,
+    dependent: :destroy
 
   has_many :artwork_shares,
     class_name: :ArtworkShare
