@@ -20,17 +20,17 @@ ArtworkShare.destroy_all
 
 # Change hard_coding to:
 
-user1 = User.create(username: 'frog')
-user2 = User.create(username: 'rabbit')
-user3 = User.create(username: 'cat')
+user1 = User.create!(username: 'frog')
+user2 = User.create!(username: 'rabbit')
+user3 = User.create!(username: 'cat')
 
-artwork1 = ArtWork.create(title: 'self_portrait', image_url:
+artwork1 = ArtWork.create!(title: 'self_portrait', image_url:
   'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA1MC81ODUvb3JpZ2luYWwvc2h1dHRlcnN0b2NrXzk0MTg0NDI1LmpwZw==',
-  artist_id: 1)
-artwork2 = ArtWork.create(title: 'Rabbit Hole',image_url:'https://cdn-images-1.medium.com/max/1200/1*xUVx8GVAl1AFgb9wp-PlyA.jpeg', artist_id:2)
-artwork3 = ArtWork.create(title: 'Catnip',image_url:'https://i.pinimg.com/originals/d6/93/9e/d6939e71dc96810673c12cdde3b92dbb.jpg', artist_id:3)
+  artist_id: user1.id)
+artwork2 = ArtWork.create!(title: 'Rabbit Hole',image_url:'https://cdn-images-1.medium.com/max/1200/1*xUVx8GVAl1AFgb9wp-PlyA.jpeg', artist_id:user2.id)
+artwork3 = ArtWork.create!(title: 'Catnip',image_url:'https://i.pinimg.com/originals/d6/93/9e/d6939e71dc96810673c12cdde3b92dbb.jpg', artist_id:user3.id)
 
-artworkshares = ArtworkShare.create([{artwork_id: artwork1.id, viewer_id: user2.id},{artwork_id: artwork2.id, viewer_id: user3.id},
+artworkshares = ArtworkShare.create!([{artwork_id: artwork1.id, viewer_id: user2.id},{artwork_id: artwork2.id, viewer_id: user3.id},
    {artwork_id: artwork3.id,viewer_id: user1.id},{artwork_id: artwork2.id,viewer_id: user1.id},{artwork_id: artwork3.id,viewer_id: user2.id}])
 
 # run this under the art_share directory to populate the database: be rails db:seed
