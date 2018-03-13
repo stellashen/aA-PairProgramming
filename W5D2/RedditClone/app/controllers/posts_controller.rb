@@ -2,13 +2,18 @@ class PostsController < ApplicationController
   before_action :require_log_in!, only: [:new, :create, :edit, :update, :destroy]
   def new
     @post = Post.new
+    @post.sub_id = params[:sub_id]
   end
 
   def create
     @post = Post.new(post_params)
     @post.author = current_user
+    @post.sub_id = params[:sub_id]
+
+    # params[:sub_ids].each do
+
     if @post.save
-      redirect_to post_url(@post)
+      redirect_to sub_url(@post.sub)
     else
       flash.now[:errors] = @post.errors.full_messages
       render :new
@@ -26,7 +31,7 @@ class PostsController < ApplicationController
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
-      rediect_to post_url(@post)
+      redirect_to sub_url(@post.sub)
     else
       flash.now[:errors] = @post.errors.full_messages
       render :edit
@@ -41,6 +46,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids: [] )
   end
 end

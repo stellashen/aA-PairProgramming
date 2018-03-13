@@ -1,2 +1,19 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<h1>Edit <%= @post.title.capitalize %></h1>
+<form action="<%= user_post_url %>" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label>Title
+    <input type="text" name="post[title]" value="<%= @post.title %>">
+  </label>
+
+  <label>URL <em>(optional)</em>
+    <input type="text" name="post[url]" value="<%= @post.url %>">
+  </label>
+
+  <label>Content <em>(optional)</em>
+    <input type="textarea" name="post[content]" value="<%= @post.content %>">
+  </label>
+
+  <button>Update Post</button>
+</form>
