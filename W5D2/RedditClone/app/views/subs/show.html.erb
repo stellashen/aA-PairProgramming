@@ -11,6 +11,14 @@
   <li> author: <%= post.author.username %></li>
   <li>content: <%= post.content %></li>
 
+  <% post.comments.each do |comment| %>
+<li> <%= comment.content %> </li>
+<li> <%= comment.author.username %> </li>
+<% end %>
+<br>
+<%= link_to 'Create Comment', new_post_comment_url(post) %>
+
+
   <% if post.author == current_user %>
   <%= link_to "Edit Post", edit_user_post_url(current_user, post) %>
   <% end %>

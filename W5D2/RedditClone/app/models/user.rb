@@ -11,7 +11,12 @@ class User < ApplicationRecord
   has_many :posts,
   primary_key: :id,
   foreign_key: :author_id,
-  class_name: :Post 
+  class_name: :Post
+
+  has_many :comments,
+  primary_key: :id,
+  foreign_key: :author_id,
+  class_name: :Comment
 
   attr_reader :password
 
