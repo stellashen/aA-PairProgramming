@@ -1,1 +1,46 @@
 /* PHASE 2: Notifications */
+.badge {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 100%;
+  text-align: center;
+  margin-left: 8px;
+  padding: 2px;
+  padding-right: 2px;
+  padding-top: 4px;
+}
+
+#Notifications {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-right: 8px; */
+  position: relative;
+}
+
+#Notifications ul {
+  position: absolute;
+  top: 60px;
+  width: 250px;
+  left: 20px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  /* padding-top: 2px;
+  padding-left: 10px; */
+
+}
+
+#Notifications ul li {
+  color: black;
+padding: 10px 0px; 
+
+}
+
+#mid-not {
+border-top: 0.5px solid lightgray;
+border-bottom: 0.5px solid lightgray;
+
+}
