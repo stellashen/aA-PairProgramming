@@ -1,0 +1,17 @@
+.tabs ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 50px;
+  font-family: $sans-serif;
+  font-size: 11px;
+}
+
+.tabs {
+  border-bottom: 1px solid $light-gray;
+}
+
+.tabs li:hover {
+  background-color: $light-gray;
+  text-decoration: underline;
+}
