@@ -27,7 +27,7 @@ Array.prototype.transpose = function() {
       return new Array(this.length);
     }
   );
-
+  
   for(let i = 0; i < this.length; i++ ) {
     for(let j = 0; j < this.length; j++) {
       result[j][i] = this[i][j];
