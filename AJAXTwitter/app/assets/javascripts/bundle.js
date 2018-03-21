@@ -93,25 +93,62 @@ class FollowToggle {
   }
 
   render() {
-    if (this.followState === "unfollowed") {
-      this.$el.text('Follow!');
+    if (this.followState === "following" || this.followState === "unfollowing") {
+      this.$el.prop('disabled', true);
     } else {
+      this.$el.prop('disabled', false);
+    }
+
+    if (this.followState === "followed") {
       this.$el.text('Unfollow!');
+    } else {
+      this.$el.text('Follow!');
     }
   }
 
   handleClick(e) {
-    // let method;
-    // this.$el.on("click", (e) => {
     e.preventDefault();
+
     if (this.followState === "unfollowed") {
-      APIUtil.followUser(this.userId);
-      this.followState = "followed";
+      this.followState = "following";
+      this.render();
+      const promise = APIUtil.followUser(this.userId);
+      promise.then( () => this.successFollow() );
+
+      // const gizmo = new Cat('gizmo')
+      // gizmo.meow() // this === gizmo
+      // const gizmoMeow = () => gizmo.meow();
+      // gizmoMeow() // this === gizmo
     } else {
-      APIUtil.unfollowUser(this.userId);
-      this.followState = "unfollowed";
+      this.followState = "unfollowing";
+      this.render();
+      const promise = APIUtil.unfollowUser(this.userId);
+      promise.then( () => this.successUnfollow() );
     }
+
+
+// .catch(rejectedUnfollowed.bind(this))
+// .catch(rejectedFollowed.bind(this))
+  }
+
+  successFollow() {
+    this.followState = "followed";
     this.render();
+  }
+
+  successUnfollow() {
+    this.followState = "unfollowed";
+    this.render();
+  }
+
+  rejectedFollowed() {
+    this.followState = "followed";
+    alert('Did not work');
+  }
+
+  rejectedUnfollowed() {
+    this.followState = "unfollowed";
+    alert('Did not work');
   }
 }
 
@@ -129,19 +166,21 @@ module.exports = FollowToggle;
 
 const APIUtil = {
   followUser: id => {
-    $.ajax({
+    const promise = $.ajax({
       url: `/users/${id}/follow`,
       type: 'POST',
-      dataType: 'JSON'
+      dataType: 'JSON',
     });
+    return promise;
   },
 
   unfollowUser: id => {
-    $.ajax({
+    const promise = $.ajax({
       url: `/users/${id}/follow`,
       type: 'DELETE',
-      dataType: 'JSON'
+      dataType: 'JSON',
     });
+    return promise;
   }
 };
 
