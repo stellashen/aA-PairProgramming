@@ -1,0 +1,23 @@
+function sum() {
+  let total = 0;
+  for (let i = 0; i < arguments.length; i++ ) {
+    total += arguments[i];
+  }
+
+  return total;
+}
+
+console.log(sum(1, 2, 3, 4));
+console.log(sum(1, 2, 3, 4, 5));
+
+function sum1(...args) {
+  let total = 0;
+  for (let i = 0; i < args.length; i++ ) {
+    total += args[i];
+  }
+
+  return total;
+}
+
+console.log(sum1(1, 2, 3, 4));
+console.log(sum1(1, 2, 3, 4, 5));
