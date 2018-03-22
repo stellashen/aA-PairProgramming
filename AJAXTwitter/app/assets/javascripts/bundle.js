@@ -68,10 +68,15 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const FollowToggle = __webpack_require__(1);
+const UsersSearch = __webpack_require__(3)
 
 $(document).on('ready', () => {
   $('.follow-toggle').each(function(idx, el) {
     const toggle = new FollowToggle($(el));
+  });
+
+  $('nav.users-search').each(function(idx, el) {
+    const usersSearch = new UsersSearch($(el));
   });
 });
 
@@ -181,10 +186,51 @@ const APIUtil = {
       dataType: 'JSON',
     });
     return promise;
+  },
+
+  searchUsers: (queryVal, success) => {
+    $.ajax({
+      url: '/users/search',
+      type: 'GET',
+      dataType: 'JSON',
+      data: {
+        query: queryVal
+      },
+      success: success
+    });
   }
 };
 
 module.exports = APIUtil;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(2);
+
+class UsersSearch {
+  constructor($el) {
+    this.$el = $el;
+    this.input = "";
+    this.ul = "";
+  }
+
+  handleInput() {
+    this.$el.on('input', (e) => {
+      APIUtil.searchUsers(this.$el.text, this.renderResults);
+    });
+  }
+
+  renderResults() {
+    $('ul.users').text("");
+  }
+
+
+}
+
+module.exports = UsersSearch;
 
 
 /***/ })
