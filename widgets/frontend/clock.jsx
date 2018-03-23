@@ -19,10 +19,13 @@ export default class Clock extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="clock-widget">
 				<h1>Awesome clock ticking</h1>
 
-				<h2 className="clock" />
+				<section className="clock-section">
+					<label>Time: </label>
+					<h2 className="clock" />
+				</section>
 			</div>
 		);
 	}

@@ -1,0 +1,31 @@
+.clock-widget {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 20%;
+	align-items: center;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 50px;
+	margin-top: 20px;
+}
+
+.clock-section {
+	background-color: orange;
+	color: white;
+	font-weight: bold;
+	font-size: 60px;
+	font-family: 'Montserrat';
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	padding: 20px;
+	width: 100%;
+	margin-top: 20px;
+	border: 3px solid black;
+}
+
+.clock {
+}
