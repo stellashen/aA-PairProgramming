@@ -1,0 +1,33 @@
+<h1>Create Post</h1>
+<form action="<%= sub_posts_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+<h3>main sub: <%= @post.sub.title %></h3>
+
+  <label>Title
+    <input type="text" name="post[title]" value="">
+  </label>
+
+  <label>URL <em>(optional)</em>
+    <input type="text" name="post[url]" value="">
+  </label>
+
+  <label>Content <em>(optional)</em>
+    <input type="textarea" name="post[content]" value="">
+  </label>
+
+
+<input type="hidden" name="post[sub_ids][]" value="<%= @post.sub.id %>">
+  <br> <label>Also Post to Other Subs:
+      <% Sub.all.each do |sub| %>
+        <% unless sub.title == @post.sub.title %>
+          <label>
+            <input type="checkbox" name="post[sub_ids][]" value="<%= sub.id %>">
+            <%= sub.title %>
+          </label>
+        <% end %>
+      <% end %>
+  </label>
+
+  <button>Create Post</button>
+</form>
