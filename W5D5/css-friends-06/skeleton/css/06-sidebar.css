@@ -1,0 +1,13 @@
+/* PHASE 6: Sidebar */
+.profile-picture {
+  margin-top: -50px;
+  /* z-index: 1000; */
+}
+
+.content-header {
+  z-index: auto;
+}
+
+.content-sidebar {
+  z-index: 1;
+}
